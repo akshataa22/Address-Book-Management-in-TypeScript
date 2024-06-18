@@ -19,6 +19,14 @@ class Contact {
         this.email = email;
     }
 
+    public getCity(): string {
+        return this.city;
+    }
+
+    public getState(): string {
+        return this.state;
+    }
+
     public equals(contact: Contact): boolean {
         return this.firstName === contact.firstName && this.lastName === contact.lastName;
     }
@@ -26,6 +34,7 @@ class Contact {
     public toString(): string {
         return `First Name: ${this.firstName}, Last Name: ${this.lastName}, Address: ${this.address}, City: ${this.city}, State: ${this.state},Zip: ${this.zip}, Phone: ${this.phoneNumber}, Email: ${this.email}`;
     }
+    
 }
 
 export default Contact;

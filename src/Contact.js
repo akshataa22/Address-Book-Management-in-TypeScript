@@ -11,6 +11,12 @@ var Contact = /** @class */ (function () {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+    Contact.prototype.getCity = function () {
+        return this.city;
+    };
+    Contact.prototype.getState = function () {
+        return this.state;
+    };
     Contact.prototype.equals = function (contact) {
         return this.firstName === contact.firstName && this.lastName === contact.lastName;
     };

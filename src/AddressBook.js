@@ -44,6 +44,18 @@ var AddressBook = /** @class */ (function () {
         }
         return false;
     };
+    AddressBook.prototype.findByCity = function (city) {
+        return this.contacts.filter(function (contact) { return contact['city'] === city; });
+    };
+    AddressBook.prototype.findByState = function (state) {
+        return this.contacts.filter(function (contact) { return contact['state'] === state; });
+    };
+    AddressBook.prototype.countByCity = function (city) {
+        return this.contacts.filter(function (contact) { return contact.getCity() === city; }).length;
+    };
+    AddressBook.prototype.countByState = function (state) {
+        return this.contacts.filter(function (contact) { return contact.getState() === state; }).length;
+    };
     return AddressBook;
 }());
 exports.default = AddressBook;

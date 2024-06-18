@@ -50,6 +50,23 @@ class AddressBook {
         }
         return false;
     }
+
+    findByCity(city: string):Contact[] {
+        return this.contacts.filter(contact => contact['city'] === city);
+    }
+
+    findByState(state: string): Contact[] {
+        return this.contacts.filter(contact => contact['state'] === state)
+    }
+
+    countByCity(city: string): number {
+        return this.contacts.filter(contact => contact.getCity() === city).length;
+    }
+
+    countByState(state: string): number {
+        return this.contacts.filter(contact => contact.getState() === state).length;
+    }
+    
 }
 
 export default AddressBook;
