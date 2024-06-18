@@ -113,6 +113,29 @@ class AddressBookMain {
         }
     }
 
+    private findContactsByCity(): void {
+        const cityOrState = this.prompt('Enter the city/state name: ');
+    
+        const results: Contact[] = [];
+    
+        Object.keys(this.addressBooks).forEach(key => {
+            const addressBook = this.addressBooks[key];
+            if (cityOrState) {
+                results.push(...addressBook.findByCity(cityOrState));
+                results.push(...addressBook.findByState(cityOrState));
+            }
+        });
+    
+        if (results.length === 0) {
+            console.log("No contacts found.");
+        } else {
+            console.log("Search Results:");
+            results.forEach(contact => {
+                console.log(contact.toString());
+            });
+        }
+    }
+
     public run(): void {
         while (true) {
             console.log("\nAddress Book Menu:");
@@ -122,7 +145,8 @@ class AddressBookMain {
             console.log("4. Add Contact");
             console.log("5. Edit Contact");
             console.log("6. Delete Contact");
-            console.log("7. Exit");
+            console.log("7. Search Contacts by City");
+            console.log("8. Exit");
             const choice = this.prompt('Enter your choice: ');
 
             switch (choice) {
@@ -143,8 +167,11 @@ class AddressBookMain {
                     break;
                 case '6':
                     this.deleteContact();
-                    break;    
+                    break;
                 case '7':
+                    this.findContactsByCity();
+                    break;        
+                case '8':
                     console.log("Exiting...");
                     return;
                 default:
@@ -153,7 +180,6 @@ class AddressBookMain {
         }
     }
 }
-
 
 const print = new AddressBookMain();
 print.run();

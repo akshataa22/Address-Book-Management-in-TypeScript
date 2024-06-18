@@ -50,6 +50,14 @@ class AddressBook {
         }
         return false;
     }
+
+    findByCity(city: string):Contact[] {
+        return this.contacts.filter(contact => contact['city'] === city);
+    }
+
+    findByState(state: string): Contact[] {
+        return this.contacts.filter(contact => contact['state'] === state)
+    }
 }
 
 export default AddressBook;

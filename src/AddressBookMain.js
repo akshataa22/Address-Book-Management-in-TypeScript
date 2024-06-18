@@ -106,6 +106,27 @@ var AddressBookMain = /** @class */ (function () {
             console.log("Contact not found.");
         }
     };
+    AddressBookMain.prototype.findContactsByCity = function () {
+        var _this = this;
+        var cityOrState = this.prompt('Enter the city/state name: ');
+        var results = [];
+        Object.keys(this.addressBooks).forEach(function (key) {
+            var addressBook = _this.addressBooks[key];
+            if (cityOrState) {
+                results.push.apply(results, addressBook.findByCity(cityOrState));
+                results.push.apply(results, addressBook.findByState(cityOrState));
+            }
+        });
+        if (results.length === 0) {
+            console.log("No contacts found.");
+        }
+        else {
+            console.log("Search Results:");
+            results.forEach(function (contact) {
+                console.log(contact.toString());
+            });
+        }
+    };
     AddressBookMain.prototype.run = function () {
         while (true) {
             console.log("\nAddress Book Menu:");
@@ -115,7 +136,8 @@ var AddressBookMain = /** @class */ (function () {
             console.log("4. Add Contact");
             console.log("5. Edit Contact");
             console.log("6. Delete Contact");
-            console.log("7. Exit");
+            console.log("7. Search Contacts by City");
+            console.log("8. Exit");
             var choice = this.prompt('Enter your choice: ');
             switch (choice) {
                 case '1':
@@ -137,6 +159,9 @@ var AddressBookMain = /** @class */ (function () {
                     this.deleteContact();
                     break;
                 case '7':
+                    this.findContactsByCity();
+                    break;
+                case '8':
                     console.log("Exiting...");
                     return;
                 default:
