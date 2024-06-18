@@ -22,9 +22,15 @@ var AddressBookMain = /** @class */ (function () {
         return new Contact_1.default(firstName, lastName, address, city, state, zip, phoneNumber, email);
     };
     AddressBookMain.prototype.addContact = function () {
-        var contact = this.createContact();
-        this.addressBook.addContact(contact);
-        console.log("Contact added successfully.");
+        while (true) {
+            var contact = this.createContact();
+            this.addressBook.addContact(contact);
+            console.log("Contact added successfully.");
+            var addAnother = this.prompt("Do you want to add another contact? (y/n): ");
+            if (addAnother.toLowerCase() !== 'y') {
+                break;
+            }
+        }
     };
     AddressBookMain.prototype.viewContact = function () {
         var contacts = this.addressBook.getContacts();
@@ -54,7 +60,6 @@ var AddressBookMain = /** @class */ (function () {
     AddressBookMain.prototype.deleteContact = function () {
         var firstName = this.prompt('Enter contact first name to delete the details: ');
         var lastName = this.prompt('Enter contact last name to delete the details: ');
-        var contact = this.addressBook.findContact(firstName, lastName);
         var isDeleted = this.addressBook.deleteContact(firstName, lastName);
         if (isDeleted) {
             console.log("Contact deleted successfully.");

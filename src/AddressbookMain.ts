@@ -27,9 +27,16 @@ class AddressBookMain {
     }
 
     private addContact(): void {
+        while(true) {
         const contact = this.createContact();
         this.addressBook.addContact(contact);
         console.log("Contact added successfully.");
+
+        const addAnother = this.prompt("Do you want to add another contact? (y/n): ");
+            if (addAnother.toLowerCase() !== 'y') {
+                break;
+            }
+        }
     }
 
     private viewContact(): void {
@@ -61,7 +68,6 @@ class AddressBookMain {
     private deleteContact(): void {
         const firstName = this.prompt('Enter contact first name to delete the details: ');
         const lastName = this.prompt('Enter contact last name to delete the details: ');
-        const contact = this.addressBook.findContact(firstName,lastName);
 
         const isDeleted = this.addressBook.deleteContact(firstName, lastName);
         if (isDeleted) {
