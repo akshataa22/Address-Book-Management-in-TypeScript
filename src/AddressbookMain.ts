@@ -115,7 +115,6 @@ class AddressBookMain {
 
     private findContactsByCity(): void {
         const cityOrState = this.prompt('Enter the city/state name: ');
-    
         const results: Contact[] = [];
     
         Object.keys(this.addressBooks).forEach(key => {
@@ -125,7 +124,6 @@ class AddressBookMain {
                 results.push(...addressBook.findByState(cityOrState));
             }
         });
-    
         if (results.length === 0) {
             console.log("No contacts found.");
         } else {
