@@ -11,6 +11,9 @@ var Contact = /** @class */ (function () {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+    Contact.prototype.equals = function (contact) {
+        return this.firstName === contact.firstName && this.lastName === contact.lastName;
+    };
     Contact.prototype.toString = function () {
         return "First Name: ".concat(this.firstName, ", Last Name: ").concat(this.lastName, ", Address: ").concat(this.address, ", City: ").concat(this.city, ", State: ").concat(this.state, ",Zip: ").concat(this.zip, ", Phone: ").concat(this.phoneNumber, ", Email: ").concat(this.email);
     };

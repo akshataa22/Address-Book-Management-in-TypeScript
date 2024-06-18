@@ -19,6 +19,10 @@ class Contact {
         this.email = email;
     }
 
+    public equals(contact: Contact): boolean {
+        return this.firstName === contact.firstName && this.lastName === contact.lastName;
+    }
+
     public toString(): string {
         return `First Name: ${this.firstName}, Last Name: ${this.lastName}, Address: ${this.address}, City: ${this.city}, State: ${this.state},Zip: ${this.zip}, Phone: ${this.phoneNumber}, Email: ${this.email}`;
     }

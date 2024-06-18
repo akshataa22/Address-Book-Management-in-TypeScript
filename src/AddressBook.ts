@@ -8,6 +8,10 @@ class AddressBook {
     }
 
     addContact(contact:Contact): void {
+        if (this.contacts.some(existingContact => existingContact.equals(contact))) {
+            console.log("Duplicate contact found. Contact not added.");
+            return;
+        }
         this.contacts.push(contact);        
     }
     
@@ -47,6 +51,5 @@ class AddressBook {
         return false;
     }
 }
-
 
 export default AddressBook;

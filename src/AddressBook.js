@@ -5,6 +5,10 @@ var AddressBook = /** @class */ (function () {
         this.contacts = [];
     }
     AddressBook.prototype.addContact = function (contact) {
+        if (this.contacts.some(function (existingContact) { return existingContact.equals(contact); })) {
+            console.log("Duplicate contact found. Contact not added.");
+            return;
+        }
         this.contacts.push(contact);
     };
     AddressBook.prototype.getContacts = function () {
