@@ -35,6 +35,17 @@ class AddressBook {
         console.log("Contact not found.");
     }
     
+    deleteContact(firstName: string, lastName: string): boolean {
+        const contact = this.findContact(firstName, lastName);
+        if (contact) {
+            const index = this.contacts.indexOf(contact);
+            if (index !== -1) {
+                this.contacts.splice(index, 1);
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 export default AddressBook;

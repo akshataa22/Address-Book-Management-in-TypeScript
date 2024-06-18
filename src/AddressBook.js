@@ -29,6 +29,17 @@ var AddressBook = /** @class */ (function () {
         }
         console.log("Contact not found.");
     };
+    AddressBook.prototype.deleteContact = function (firstName, lastName) {
+        var contact = this.findContact(firstName, lastName);
+        if (contact) {
+            var index = this.contacts.indexOf(contact);
+            if (index !== -1) {
+                this.contacts.splice(index, 1);
+                return true;
+            }
+        }
+        return false;
+    };
     return AddressBook;
 }());
 exports.default = AddressBook;

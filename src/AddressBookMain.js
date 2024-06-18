@@ -51,25 +51,41 @@ var AddressBookMain = /** @class */ (function () {
             console.log("Contact not found.");
         }
     };
+    AddressBookMain.prototype.deleteContact = function () {
+        var firstName = this.prompt('Enter contact first name to delete the details: ');
+        var lastName = this.prompt('Enter contact last name to delete the details: ');
+        var contact = this.addressBook.findContact(firstName, lastName);
+        var isDeleted = this.addressBook.deleteContact(firstName, lastName);
+        if (isDeleted) {
+            console.log("Contact deleted successfully.");
+        }
+        else {
+            console.log("Contact not found.");
+        }
+    };
     AddressBookMain.prototype.run = function () {
         while (true) {
             console.log("\nAddress Book Menu:");
-            console.log("1. Add Contact");
-            console.log("2. Edit Contact");
-            console.log("3. View All Contacts");
-            console.log("4. Exit");
+            console.log("1. View All Contacts");
+            console.log("2. Add Contact");
+            console.log("3. Edit Contact");
+            console.log("4. Delete Contact");
+            console.log("5. Exit");
             var choice = this.prompt('Enter your choice: ');
             switch (choice) {
                 case '1':
-                    this.addContact();
+                    this.viewContact();
                     break;
                 case '2':
-                    this.viewContact();
+                    this.addContact();
                     break;
                 case '3':
                     this.editContact();
                     break;
                 case '4':
+                    this.deleteContact();
+                    break;
+                case '5':
                     console.log("Exiting...");
                     return;
                 default:
