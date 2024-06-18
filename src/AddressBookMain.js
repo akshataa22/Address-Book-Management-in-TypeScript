@@ -135,6 +135,33 @@ var AddressBookMain = /** @class */ (function () {
         this.currentAddressBook.sortContacts();
         console.log("Contacts sorted alphabetically.");
     };
+    AddressBookMain.prototype.sortContacts = function () {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
+        console.log("Sort Contacts By:");
+        console.log("1. City");
+        console.log("2. State");
+        console.log("3. Zip Code");
+        var choice = this.prompt("Enter your choice: ");
+        switch (choice) {
+            case '1':
+                this.currentAddressBook.sortContactsByCity();
+                console.log("Contacts sorted by city.");
+                break;
+            case '2':
+                this.currentAddressBook.sortContactsByState();
+                console.log("Contacts sorted by state.");
+                break;
+            case '3':
+                this.currentAddressBook.sortContactsByZip();
+                console.log("Contacts sorted by zip code.");
+                break;
+            default:
+                console.log("Invalid choice! Please try again.");
+        }
+    };
     AddressBookMain.prototype.viewAddressBooks = function () {
         console.log("Address Books:");
         for (var name_1 in this.addressBooks) {
@@ -154,7 +181,8 @@ var AddressBookMain = /** @class */ (function () {
             console.log("8. Search Contacts by City/State");
             console.log("9. Number of Contacts by City/State");
             console.log("10. Sort contacts alphabetically");
-            console.log("11. Exit");
+            console.log("11. Sort Contacts by City/State/Zip");
+            console.log("12. Exit");
             var choice = this.prompt('Enter your choice: ');
             switch (choice) {
                 case '1':
@@ -188,6 +216,9 @@ var AddressBookMain = /** @class */ (function () {
                     this.sortContactsAlphabetically();
                     break;
                 case '11':
+                    this.sortContacts();
+                    break;
+                case '12':
                     console.log("Exiting...");
                     return;
                 default:

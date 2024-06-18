@@ -50,6 +50,15 @@ var AddressBook = /** @class */ (function () {
     AddressBook.prototype.findByState = function (state) {
         return this.contacts.filter(function (contact) { return contact['state'] === state; });
     };
+    AddressBook.prototype.sortContactsByCity = function () {
+        this.contacts.sort(function (a, b) { return a.getCity().localeCompare(b.getCity()); });
+    };
+    AddressBook.prototype.sortContactsByState = function () {
+        this.contacts.sort(function (a, b) { return a.getState().localeCompare(b.getState()); });
+    };
+    AddressBook.prototype.sortContactsByZip = function () {
+        this.contacts.sort(function (a, b) { return a.getZip() - b.getZip(); });
+    };
     AddressBook.prototype.sortContacts = function () {
         this.contacts.sort(function (a, b) {
             var nameA = "".concat(a.getFirstName(), " ").concat(a.getLastName()).toLowerCase();

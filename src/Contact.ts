@@ -27,6 +27,18 @@ class Contact {
         return this.lastName;
     }
 
+    public getCity(): string {
+        return this.city;
+    }
+
+    public getState(): string {
+        return this.state;
+    }
+
+    public getZip(): number {
+        return this.zip;
+    }
+
     public equals(contact: Contact): boolean {
         return this.firstName === contact.firstName && this.lastName === contact.lastName;
     }

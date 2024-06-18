@@ -17,6 +17,15 @@ var Contact = /** @class */ (function () {
     Contact.prototype.getLastName = function () {
         return this.lastName;
     };
+    Contact.prototype.getCity = function () {
+        return this.city;
+    };
+    Contact.prototype.getState = function () {
+        return this.state;
+    };
+    Contact.prototype.getZip = function () {
+        return this.zip;
+    };
     Contact.prototype.equals = function (contact) {
         return this.firstName === contact.firstName && this.lastName === contact.lastName;
     };

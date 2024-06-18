@@ -143,6 +143,36 @@ class AddressBookMain {
         console.log("Contacts sorted alphabetically.");
     }
 
+    private sortContacts(): void {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
+
+        console.log("Sort Contacts By:");
+        console.log("1. City");
+        console.log("2. State");
+        console.log("3. Zip Code");
+        const choice = this.prompt("Enter your choice: ");
+
+        switch (choice) {
+            case '1':
+                this.currentAddressBook.sortContactsByCity();
+                console.log("Contacts sorted by city.");
+                break;
+            case '2':
+                this.currentAddressBook.sortContactsByState();
+                console.log("Contacts sorted by state.");
+                break;
+            case '3':
+                this.currentAddressBook.sortContactsByZip();
+                console.log("Contacts sorted by zip code.");
+                break;
+            default:
+                console.log("Invalid choice! Please try again.");
+        }
+    }
+
     private viewAddressBooks() {
         console.log("Address Books:")
         for(const name in this.addressBooks){
@@ -163,7 +193,8 @@ class AddressBookMain {
             console.log("8. Search Contacts by City/State");
             console.log("9. Number of Contacts by City/State");
             console.log("10. Sort contacts alphabetically");
-            console.log("11. Exit");
+            console.log("11. Sort Contacts by City/State/Zip")
+            console.log("12. Exit");
             const choice = this.prompt('Enter your choice: ');
 
             switch (choice) {
@@ -196,8 +227,11 @@ class AddressBookMain {
                     break;    
                 case '10':
                     this.sortContactsAlphabetically();
-                    break;         
+                    break;
                 case '11':
+                    this.sortContacts();
+                    break;        
+                case '12':
                     console.log("Exiting...");
                     return;
                 default:

@@ -52,11 +52,23 @@ class AddressBook {
     }
 
     findByCity(city: string):Contact[] {
-        return this.contacts.filter(contact => contact['city'] === city);
+        return this.contacts.filter(contact => contact['city'] === city)
     }
 
     findByState(state: string): Contact[] {
         return this.contacts.filter(contact => contact['state'] === state)
+    }
+
+    sortContactsByCity(): void {
+        this.contacts.sort((a,b) => a.getCity().localeCompare(b.getCity()))
+    }
+
+    sortContactsByState(): void {
+        this.contacts.sort((a, b) => a.getState().localeCompare(b.getState()));
+    }
+
+    sortContactsByZip(): void {
+        this.contacts.sort((a, b) => a.getZip() - b.getZip());
     }
 
     sortContacts(): void {
