@@ -5,7 +5,8 @@ var Contact_1 = require("./Contact");
 var readlineSync = require("readline-sync");
 var AddressBookMain = /** @class */ (function () {
     function AddressBookMain() {
-        this.addressBook = new AddressBook_1.default();
+        this.addressBooks = {};
+        this.currentAddressBook = null;
     }
     AddressBookMain.prototype.prompt = function (query) {
         return readlineSync.question(query);
@@ -21,10 +22,35 @@ var AddressBookMain = /** @class */ (function () {
         var email = this.prompt("Enter your email address: ");
         return new Contact_1.default(firstName, lastName, address, city, state, zip, phoneNumber, email);
     };
+    AddressBookMain.prototype.createAddressBook = function () {
+        var name = this.prompt("Enter the name of the Address Book you want to create: ");
+        if (this.addressBooks[name]) {
+            console.log("Address Book with the name \"".concat(name, "\" already exists."));
+        }
+        else {
+            this.addressBooks[name] = new AddressBook_1.default();
+            console.log("Address Book \"".concat(name, "\" created successfully."));
+        }
+    };
+    AddressBookMain.prototype.selectAddressBook = function () {
+        var name = this.prompt("Enter the name of the Address Book you want to select: ");
+        var addressBook = this.addressBooks[name];
+        if (addressBook) {
+            this.currentAddressBook = addressBook;
+            console.log("Address Book \"".concat(name, "\" selected."));
+        }
+        else {
+            console.log("Address Book with the name \"".concat(name, "\" not found."));
+        }
+    };
     AddressBookMain.prototype.addContact = function () {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
         while (true) {
             var contact = this.createContact();
-            this.addressBook.addContact(contact);
+            this.currentAddressBook.addContact(contact);
             console.log("Contact added successfully.");
             var addAnother = this.prompt("Do you want to add another contact? (y/n): ");
             if (addAnother.toLowerCase() !== 'y') {
@@ -32,8 +58,12 @@ var AddressBookMain = /** @class */ (function () {
             }
         }
     };
-    AddressBookMain.prototype.viewContact = function () {
-        var contacts = this.addressBook.getContacts();
+    AddressBookMain.prototype.viewContacts = function () {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
+        var contacts = this.currentAddressBook.getContacts();
         if (contacts.length === 0) {
             console.log("No contacts found.");
         }
@@ -45,22 +75,30 @@ var AddressBookMain = /** @class */ (function () {
         }
     };
     AddressBookMain.prototype.editContact = function () {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
         var firstName = this.prompt("Enter the first name of the contact to edit: ");
         var lastName = this.prompt("Enter the last name of the contact to edit: ");
-        var existingContact = this.addressBook.findContact(firstName, lastName);
+        var existingContact = this.currentAddressBook.findContact(firstName, lastName);
         if (existingContact) {
             console.log("Editing Contact: ", existingContact.toString());
             var updatedContact = this.createContact();
-            this.addressBook.updateContact(firstName, lastName, updatedContact);
+            this.currentAddressBook.updateContact(firstName, lastName, updatedContact);
         }
         else {
             console.log("Contact not found.");
         }
     };
     AddressBookMain.prototype.deleteContact = function () {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
         var firstName = this.prompt('Enter contact first name to delete the details: ');
         var lastName = this.prompt('Enter contact last name to delete the details: ');
-        var isDeleted = this.addressBook.deleteContact(firstName, lastName);
+        var isDeleted = this.currentAddressBook.deleteContact(firstName, lastName);
         if (isDeleted) {
             console.log("Contact deleted successfully.");
         }
@@ -72,25 +110,33 @@ var AddressBookMain = /** @class */ (function () {
         while (true) {
             console.log("\nAddress Book Menu:");
             console.log("1. View All Contacts");
-            console.log("2. Add Contact");
-            console.log("3. Edit Contact");
-            console.log("4. Delete Contact");
-            console.log("5. Exit");
+            console.log("2. Create Address Book");
+            console.log("3. Select Address Book");
+            console.log("4. Add Contact");
+            console.log("5. Edit Contact");
+            console.log("6. Delete Contact");
+            console.log("7. Exit");
             var choice = this.prompt('Enter your choice: ');
             switch (choice) {
                 case '1':
-                    this.viewContact();
+                    this.viewContacts();
                     break;
                 case '2':
-                    this.addContact();
+                    this.createAddressBook();
                     break;
                 case '3':
-                    this.editContact();
+                    this.selectAddressBook();
                     break;
                 case '4':
-                    this.deleteContact();
+                    this.addContact();
                     break;
                 case '5':
+                    this.editContact();
+                    break;
+                case '6':
+                    this.deleteContact();
+                    break;
+                case '7':
                     console.log("Exiting...");
                     return;
                 default:
