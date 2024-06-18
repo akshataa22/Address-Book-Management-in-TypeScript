@@ -134,17 +134,36 @@ class AddressBookMain {
         }
     }
 
+    private sortContactsAlphabetically(): void {
+        if (!this.currentAddressBook) {
+            console.log("No Address Book selected.");
+            return;
+        }
+        this.currentAddressBook.sortContacts();
+        console.log("Contacts sorted alphabetically.");
+    }
+
+    private viewAddressBooks() {
+        console.log("Address Books:")
+        for(const name in this.addressBooks){
+            console.log(name)
+        }
+    }
+
     public run(): void {
         while (true) {
             console.log("\nAddress Book Menu:");
             console.log("1. View All Contacts");
             console.log("2. Create Address Book");
-            console.log("3. Select Address Book");
-            console.log("4. Add Contact");
-            console.log("5. Edit Contact");
-            console.log("6. Delete Contact");
-            console.log("7. Search Contacts by City");
-            console.log("8. Exit");
+            console.log("3. View Address Books");
+            console.log("4. Select Address Book");
+            console.log("5. Add Contact");
+            console.log("6. Edit Contact");
+            console.log("7. Delete Contact");
+            console.log("8. Search Contacts by City/State");
+            console.log("9. Number of Contacts by City/State");
+            console.log("10. Sort contacts alphabetically");
+            console.log("11. Exit");
             const choice = this.prompt('Enter your choice: ');
 
             switch (choice) {
@@ -155,21 +174,30 @@ class AddressBookMain {
                     this.createAddressBook();
                     break;
                 case '3':
+                    this.viewAddressBooks();
+                    break;
+                case '4':
                     this.selectAddressBook();
                     break;                            
-                case '4':
+                case '5':
                     this.addContact();
                     break;
-                case '5':
+                case '6':
                     this.editContact();
                     break;
-                case '6':
+                case '7':
                     this.deleteContact();
                     break;
-                case '7':
-                    this.findContactsByCity();
-                    break;        
                 case '8':
+                    this.findContactsByCity();
+                    break;  
+                case '9':
+                    this.findContactsByCity();
+                    break;    
+                case '10':
+                    this.sortContactsAlphabetically();
+                    break;         
+                case '11':
                     console.log("Exiting...");
                     return;
                 default:

@@ -58,6 +58,14 @@ class AddressBook {
     findByState(state: string): Contact[] {
         return this.contacts.filter(contact => contact['state'] === state)
     }
+
+    sortContacts(): void {
+        this.contacts.sort((a, b) => {
+            const nameA = `${a.getFirstName()} ${a.getLastName()}`.toLowerCase();
+            const nameB = `${b.getFirstName()} ${b.getLastName()}`.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+    }
 }
 
 export default AddressBook;
